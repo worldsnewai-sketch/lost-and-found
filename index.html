@@ -56,6 +56,11 @@
     text-align: center;
     background: radial-gradient(circle at 90% 0%, #e3f5ec 0, transparent 45%), var(--bg);
   }
+  /* 첫 화면: 검색만 보이고, "물건 찾기"를 눌러야 목록이 나옴 */
+  body.home .hero { min-height: calc(100vh - 63px); display: flex; flex-direction: column; justify-content: center; padding-bottom: 12vh; }
+  body.home .hero > .pill { align-self: center; }
+  body.home main { display: none; }
+  .search-card { width: 100%; }
   .hero h1 { font-size: clamp(26px, 5vw, 36px); margin: 16px 0 10px; letter-spacing: -0.02em; }
   .hero p { color: var(--muted); margin: 0 0 28px; }
   .search-card {
@@ -166,7 +171,7 @@
   }
 </style>
 </head>
-<body>
+<body class="home">
 <header>
   <a class="logo" href="#">
     <span class="logo-icon">
@@ -510,8 +515,16 @@ $('#registerForm').addEventListener('submit', async (e) => {
 $('#searchForm').addEventListener('submit', (e) => {
   e.preventDefault();
   state.q = $('#q').value.trim();
+  document.body.classList.remove('home');
   render();
   $('#results').scrollIntoView({ behavior: 'smooth' });
+});
+$('.logo').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.body.classList.add('home');
+  state.q = ''; $('#q').value = ''; state.cat = '전체';
+  render();
+  window.scrollTo({ top: 0 });
 });
 $('#q').addEventListener('input', (e) => { if (!e.target.value) { state.q = ''; render(); } });
 $('#showReturned').addEventListener('change', (e) => { state.showReturned = e.target.checked; render(); });
