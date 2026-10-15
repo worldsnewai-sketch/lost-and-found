@@ -1,0 +1,14 @@
+{
+  "name": "lost-and-found",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs"
+  },
+  "dependencies": {
+    "@vercel/blob": "2.8.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
